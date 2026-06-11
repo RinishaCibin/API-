@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from student.views import *
-
+from django.conf import settings
+from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
+routes=DefaultRouter()
+routes.register('teacher',TeachersViewSet,basename="teach")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('first',firstRequest),
@@ -27,7 +31,12 @@ urlpatterns = [
     path('student/<int:id>',SpecificStudentView.as_view()),
     path('assignment',AssignmentView.as_view()),
     path('assignment/<int:pk>',SpecificAssignmentView.as_view()),
+    # path('todo',TodoView.as_view()),
+    # path('todo/<int:pk>',SpecificTodoView.as_view())
     path('todo',TodoView.as_view()),
-    path('todo/<int:pk>',SpecificTodoView.as_view())
+    path('todo/<int:pk>',SpecificTodoView.as_view()),
+    # path('teachers', TeacherView.as_view()),
 
-]
+# + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]+routes.urls
+    

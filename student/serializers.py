@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from student.models import *
 
 
 class AssignmentSerializer(serializers.Serializer):
@@ -12,4 +13,15 @@ class TodoSerializer(serializers.Serializer):
     description=serializers.CharField()
     subject=serializers.CharField()
     added_date=serializers.DateTimeField(read_only=True)
+
+class TodoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Todo
+        fields="__all__"
+        read_only_fields=["added_date"]
+
+class TeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Teacher
+        fields="__all__"
 
